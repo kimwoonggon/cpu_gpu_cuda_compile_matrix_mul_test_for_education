@@ -24,4 +24,12 @@ cpu with naive : 62314 ms
 cpu with openmp :  8317 ms  
 cuda kernel gpu :  374 ms  
 
+## AVX2  
+cl /EHsc /Ox /arch:AVX2 /openmp main_avx.cpp /Fe:mulavx.exe  
+## Result 1000x1000 Image Processing (100x times)  
+cpu with naive : 65422 ms  
+cpu with avx2 :  48422 ms  
+cpu with avx2+openmp : 6710 ms  
+
+
 
