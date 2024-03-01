@@ -8,5 +8,6 @@ CUDA 11.8
 3. nvcc -c main.cpp -o main.obj
 4. nvcc -o gpu_mul.exe gpu_mul.obj main.obj
 ## Result  
-cpu without parallel : 
+cpu without parallel :  
 gpu :  
+
