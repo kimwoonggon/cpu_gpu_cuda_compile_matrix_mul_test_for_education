@@ -19,7 +19,7 @@ cuda kernel gpu :  400.214 ms
 1. nvcc -c gpu_mul.cu -o gpu_mul.obj -O3
 2. nvcc -c main.cpp -o main.obj -Xcompiler "/openmp,/O2"
 3. nvcc -o gpu_mul.exe gpu_mul.obj main.obj
-## Result 100x100 Image Processing  
+## Result 1000x1000 Image Processing  
 cpu with naive : 62314 ms  
 cpu with openmp :  8317 ms  
 cuda kernel gpu :  374 ms  
