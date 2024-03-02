@@ -4,11 +4,11 @@ The aim is to demonstrate the potential speedup achievable with CUDA for tasks n
 
   
 ## Environment Setup
-Operating System: Windows 10 Pro  
-CPU: Ryzen 9 5900, 12-Core Processor, 3.701 GHz  
-GPU: NVIDIA RTX 4070 TI  
-CUDA Version: 11.8  
-Development Tools: x64 Native Tools Command Prompt for VS 2022, CUDA nvcc Compiler  
+- Operating System: Windows 10 Pro  
+- CPU: Ryzen 9 5900, 12-Core Processor, 3.701 GHz  
+- GPU: NVIDIA RTX 4070 TI  
+- CUDA Version: 11.8  
+- Development Tools: x64 Native Tools Command Prompt for VS 2022, CUDA nvcc Compiler  
   
 ## Compilation Steps  
 To compile the code, follow these steps from the Command Line (Note: No multicore processing for CPU):  
