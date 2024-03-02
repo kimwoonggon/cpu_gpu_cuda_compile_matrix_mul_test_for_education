@@ -38,6 +38,7 @@ void cpuMatrixMultiplyOpenMP(const std::vector<std::vector<float>>& a, const std
         }
     }
 }
+// 128 비트 벡터 연산
 void cpuMatrixMultiplySSE2(const std::vector<std::vector<float>>& a, const std::vector<std::vector<float>>& b, std::vector<std::vector<float>>& c) {
     int N = a.size();
 
@@ -57,6 +58,7 @@ void cpuMatrixMultiplySSE2(const std::vector<std::vector<float>>& a, const std::
     }
 }
 
+// 256 비트 벡터 연산
 void cpuMatrixMultiplyAVX2(const std::vector<std::vector<float>>& a, const std::vector<std::vector<float>>& b, std::vector<std::vector<float>>& c) {
     int N = a.size();
 
@@ -200,10 +202,17 @@ int main(int argc, char** argv) {
     auto start_gpu = std::chrono::high_resolution_clock::now();
     for (int i=0;i<100;i++)
         gpuMatrixMultiply(gpu_a, gpu_b, gpu_c, N);
+    
     auto end_gpu = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float, std::milli> duration_gpu = end_gpu - start_gpu;
     std::cout << "GPU Execution Time: " << duration_gpu.count() << " ms" << std::endl;    
 
+    start_gpu = std::chrono::high_resolution_clock::now();
+    for (int i=0;i<100;i++)
+        gpuMatrixMultiplyShared(gpu_a, gpu_b, gpu_c, N);
+    end_gpu = std::chrono::high_resolution_clock::now();
+    duration_gpu = end_gpu - start_gpu;
+    std::cout << "GPU Execution Time using Shared 64: " << duration_gpu.count() << " ms" << std::endl; 
     std::cout << "GPU Result:" << std::endl;
     // for (int i = 0; i < N; ++i) {
     //     for (int j = 0; j < N; ++j) {
