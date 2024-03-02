@@ -1,43 +1,39 @@
-## Purpose  
-1. How much Can my cpu catch a speed of CUDA KERNEL which is not fully optimized just using global memory?
-2. CPP 17 and CUDA nvcc Compiler can be integrated Naturally?  
+## CUDA and CPU Matrix Multiplication Performance Comparison
+These code snippets present a comparison of matrix multiplication performance using a CPU with various optimizations (including OpenMP and AVX2) and a GPU using CUDA.  
+The aim is to demonstrate the potential speedup achievable with CUDA for tasks not fully optimized and relying only on global memory, compared to different CPU optimization techniques.  
 
-## Environment  
-Windows 10 Pro, Ryzen 9 5900 12-Core Process, 3701Mhz, NVIDIA RTX 4070 TI  
-CUDA 11.8  
+  
+## Environment Setup
+Operating System: Windows 10 Pro  
+CPU: Ryzen 9 5900, 12-Core Processor, 3.701 GHz  
+GPU: NVIDIA RTX 4070 TI  
+CUDA Version: 11.8  
+Development Tools: x64 Native Tools Command Prompt for VS 2022, CUDA nvcc Compiler  
+  
+## Compilation Steps  
+To compile the code, follow these steps from the Command Line (Note: No multicore processing for CPU):  
+- Build and Compile Using CMake:  
+```
+mkdir build
+cd build
+cmake -S .. -B .
+cmake --build . --config Release
+```  
+##Performance Results  
+Performance was tested on 1000x1000 matrix multiplication tasks:  
 
-## Start From a CommandLine (No Multicore for CPU)  
-1. Start x64 Native Tools Command Prompt for VS 2022 for cl.exe environment
-2. nvcc -c gpu_mul.cu -o gpu_mul.obj
-3. nvcc -c main.cpp -o main.obj
-4. nvcc -o gpu_mul.exe gpu_mul.obj main.obj
-## Result 1000x1000 Image Processing  
-cpu without parallel :  856010 ms
-cuda kernel gpu :  400.214 ms  
-
-## OpenMP  
-1. nvcc -c gpu_mul.cu -o gpu_mul.obj -O3
-2. nvcc -c main.cpp -o main.obj -Xcompiler "/openmp,/O2"
-3. nvcc -o gpu_mul.exe gpu_mul.obj main.obj
-## Result 1000x1000 Image Processing  
-cpu with naive : 62314 ms  
-cpu with openmp :  8317 ms  
-cuda kernel gpu :  374 ms  
-
-## AVX2  
-cl /EHsc /Ox /arch:AVX2 /openmp main_avx.cpp /Fe:mulavx.exe  
-## Result 1000x1000 Image Processing (100x times)  
-cpu with naive : 65422 ms  
-cpu with avx2 :  48422 ms  
-cpu with avx2+openmp : 6710 ms  
-## Build And Compile Using CMake  
-mkdir build  
-cd build  
-cmake -S .. -B .  
-cmake --build . --config Release  
-## 기타  
-The copyright belongs to Woonggon Kim, and those who are interested are encouraged to contact.
-
+- Without Parallelization:  
+CPU: 856,010 ms  
+CUDA GPU: 400.214 ms  
+- With OpenMP:  
+CPU: 8,317 ms  
+CUDA GPU: 374 ms  
+- With AVX2:  
+CPU (naive): 65,422 ms  
+CPU with AVX2: 48,422 ms  
+CPU with AVX2 + OpenMP: 6,710 ms
+## Additional Information  
+The copyright of the provided code and methodology belongs to Woonggon Kim. Interested parties are encouraged to contact for further information or collaboration opportunities.
 
 
 
