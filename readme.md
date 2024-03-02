@@ -35,6 +35,8 @@ mkdir build
 cd build  
 cmake -S .. -B .  
 cmake --build . --config Release  
+## 기타  
+The copyright belongs to Woonggon Kim, and those who are interested are encouraged to contact.
 
 
 
