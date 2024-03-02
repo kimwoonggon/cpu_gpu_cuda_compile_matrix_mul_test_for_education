@@ -30,6 +30,12 @@ cl /EHsc /Ox /arch:AVX2 /openmp main_avx.cpp /Fe:mulavx.exe
 cpu with naive : 65422 ms  
 cpu with avx2 :  48422 ms  
 cpu with avx2+openmp : 6710 ms  
+## Build And Compile Using CMake  
+mkdir build  
+cd build  
+cmake -S .. -B .  
+cmake --build . --config Release  
+
 
 
 
