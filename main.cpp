@@ -189,27 +189,39 @@ int main(int argc, char** argv) {
     //     std::cout << std::endl;
     // }
 
-    float *gpu_a = new float[N*N];
-    float *gpu_b = new float[N*N];
-    float *gpu_c = new float[N*N];
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            gpu_a[i*N + j] = a[i][j];
-            gpu_b[i*N + j] = b[i][j];
-        }
-    }
+    
 
     auto start_gpu = std::chrono::high_resolution_clock::now();
-    for (int i=0;i<100;i++)
+    for (int i=0;i<100;i++){
+        float *gpu_a = new float[N*N];
+        float *gpu_b = new float[N*N];
+        float *gpu_c = new float[N*N];
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                gpu_a[i*N + j] = a[i][j];
+                gpu_b[i*N + j] = b[i][j];
+            }
+        }
         gpuMatrixMultiply(gpu_a, gpu_b, gpu_c, N);
+    }
     
     auto end_gpu = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float, std::milli> duration_gpu = end_gpu - start_gpu;
     std::cout << "GPU Execution Time: " << duration_gpu.count() << " ms" << std::endl;    
 
     start_gpu = std::chrono::high_resolution_clock::now();
-    for (int i=0;i<100;i++)
+    for (int i=0;i<100;i++){
+        float *gpu_a = new float[N*N];
+        float *gpu_b = new float[N*N];
+        float *gpu_c = new float[N*N];
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                gpu_a[i*N + j] = a[i][j];
+                gpu_b[i*N + j] = b[i][j];
+            }
+        }
         gpuMatrixMultiplyShared(gpu_a, gpu_b, gpu_c, N);
+    }
     end_gpu = std::chrono::high_resolution_clock::now();
     duration_gpu = end_gpu - start_gpu;
     std::cout << "GPU Execution Time using Shared 64: " << duration_gpu.count() << " ms" << std::endl; 
