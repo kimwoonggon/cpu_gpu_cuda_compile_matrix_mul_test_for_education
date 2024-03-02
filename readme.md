@@ -18,7 +18,11 @@ mkdir build
 cd build
 cmake -S .. -B .
 cmake --build . --config Release
-```  
+```
+- Implement
+```
+gpu_mul.exe 1000 avx
+```    
 ## Performance Results  
 Performance was tested on 1000x1000 matrix multiplication tasks:  
 
