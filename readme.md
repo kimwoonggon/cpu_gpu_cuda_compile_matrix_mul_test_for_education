@@ -19,7 +19,7 @@ cd build
 cmake -S .. -B .
 cmake --build . --config Release
 ```
-- Implement
+- Implement  (1000x1000 matrix multiplication)  
 ```
 gpu_mul.exe 1000 avx
 ```    
