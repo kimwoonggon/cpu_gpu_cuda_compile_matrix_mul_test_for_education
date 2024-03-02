@@ -1,4 +1,4 @@
-# CUDA and CPU Matrix Multiplication Performance Comparison
+# CUDA and CPU Matrix Multiplication Performance Comparison For Educational Purposes
 These code snippets present a comparison of matrix multiplication performance using a CPU with various optimizations (including OpenMP and AVX2) and a GPU using CUDA.  
 The aim is to demonstrate the potential speedup achievable with CUDA for tasks not fully optimized and relying only on global memory, compared to different CPU optimization techniques.  
 
