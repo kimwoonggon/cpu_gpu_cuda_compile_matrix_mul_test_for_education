@@ -19,7 +19,7 @@ cd build
 cmake -S .. -B .
 cmake --build . --config Release
 ```  
-##Performance Results  
+## Performance Results  
 Performance was tested on 1000x1000 matrix multiplication tasks:  
 
 - Without Parallelization:  
@@ -32,6 +32,7 @@ CUDA GPU: 374 ms
 CPU (naive): 65,422 ms  
 CPU with AVX2: 48,422 ms  
 CPU with AVX2 + OpenMP: 6,710 ms
+
 ## Additional Information  
 The copyright of the provided code and methodology belongs to Woonggon Kim. Interested parties are encouraged to contact for further information or collaboration opportunities.
 
