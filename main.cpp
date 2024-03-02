@@ -144,12 +144,7 @@ int main(int argc, char** argv) {
     std::vector<std::vector<float>> a(N, std::vector<float>(N, 1.0f));
     std::vector<std::vector<float>> b(N, std::vector<float>(N, 2.0f));
     
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            a[i][j] = distr(eng);
-            b[i][j] = distr(eng);
-        }
-    }
+    
     
     std::vector<std::vector<float>> c(N, std::vector<float>(N, 0.0f));
     std::cout << "# of processors : " << omp_get_num_procs() << std::endl;
@@ -158,19 +153,58 @@ int main(int argc, char** argv) {
     auto start_cpu = std::chrono::high_resolution_clock::now();
     if (mode == "naive")
         for (int i=0;i<100;i++)
+        {
+            for (int i = 0; i < N; ++i) {
+                for (int j = 0; j < N; ++j) {
+                    a[i][j] = distr(eng);
+                    b[i][j] = distr(eng);
+                }
+            }
             cpuMatrixMultiplyNaive(a, b, c);
+        }
     else if (mode == "openmp")
         for (int i=0;i<100;i++)
+        {
+            for (int i = 0; i < N; ++i) {
+                for (int j = 0; j < N; ++j) {
+                    a[i][j] = distr(eng);
+                    b[i][j] = distr(eng);
+                }
+            }
             cpuMatrixMultiplyOpenMP(a, b, c);
+        }
     else if (mode == "avx")
          for (int i=0;i<100;i++)
-             cpuMatrixMultiplyAVX2(a, b, c);
+         {
+            for (int i = 0; i < N; ++i) {
+                for (int j = 0; j < N; ++j) {
+                    a[i][j] = distr(eng);
+                    b[i][j] = distr(eng);
+                }
+            }
+            cpuMatrixMultiplyAVX2(a, b, c);
+         }
     else if (mode == "sse")
          for (int i=0;i<100;i++)
-             cpuMatrixMultiplySSE2(a, b, c);
+         {
+            for (int i = 0; i < N; ++i) {
+                for (int j = 0; j < N; ++j) {
+                    a[i][j] = distr(eng);
+                    b[i][j] = distr(eng);
+                }
+            }
+            cpuMatrixMultiplySSE2(a, b, c);
+         }
     else if (mode == "openmp_avx")
-         for (int i=0;i<100;i++)
-             cpuMatrixMultiplyAVX2OPENMP(a, b, c);
+         for (int i=0;i<100;i++){
+            for (int i = 0; i < N; ++i) {
+                for (int j = 0; j < N; ++j) {
+                    a[i][j] = distr(eng);
+                    b[i][j] = distr(eng);
+                }
+            }
+            cpuMatrixMultiplyAVX2OPENMP(a, b, c);
+         }
     else
     {
         return -1;
@@ -197,12 +231,21 @@ int main(int argc, char** argv) {
         float *gpu_b = new float[N*N];
         float *gpu_c = new float[N*N];
         for (int i = 0; i < N; ++i) {
+                for (int j = 0; j < N; ++j) {
+                    a[i][j] = distr(eng);
+                    b[i][j] = distr(eng);
+                }
+        }
+        for (int i = 0; i < N; ++i) {
             for (int j = 0; j < N; ++j) {
                 gpu_a[i*N + j] = a[i][j];
                 gpu_b[i*N + j] = b[i][j];
             }
         }
         gpuMatrixMultiply(gpu_a, gpu_b, gpu_c, N);
+        delete[] gpu_a;
+        delete[] gpu_b;
+        delete[] gpu_c;
     }
     
     auto end_gpu = std::chrono::high_resolution_clock::now();
@@ -215,12 +258,21 @@ int main(int argc, char** argv) {
         float *gpu_b = new float[N*N];
         float *gpu_c = new float[N*N];
         for (int i = 0; i < N; ++i) {
+                for (int j = 0; j < N; ++j) {
+                    a[i][j] = distr(eng);
+                    b[i][j] = distr(eng);
+                }
+        }
+        for (int i = 0; i < N; ++i) {
             for (int j = 0; j < N; ++j) {
                 gpu_a[i*N + j] = a[i][j];
                 gpu_b[i*N + j] = b[i][j];
             }
         }
         gpuMatrixMultiplyShared(gpu_a, gpu_b, gpu_c, N);
+        delete[] gpu_a;
+        delete[] gpu_b;
+        delete[] gpu_c;
     }
     end_gpu = std::chrono::high_resolution_clock::now();
     duration_gpu = end_gpu - start_gpu;
@@ -232,10 +284,6 @@ int main(int argc, char** argv) {
     //     }
     //     std::cout << std::endl;
     // }
-
-    delete[] gpu_a;
-    delete[] gpu_b;
-    delete[] gpu_c;
 
     return 0;
 }
