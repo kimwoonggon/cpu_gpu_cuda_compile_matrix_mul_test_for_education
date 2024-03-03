@@ -34,7 +34,6 @@ void gpuMatrixMultiply(float *a, float *b, float *c, int N) {
     cudaFree(dev_c);
 }
 
-  // Define the size of the tile/submatrix
 
 __global__ void matrixMultiplySharedKernel(float *a, float *b, float *c, int N) {
     __shared__ float sA[TILE_WIDTH][TILE_WIDTH];
@@ -49,7 +48,6 @@ __global__ void matrixMultiplySharedKernel(float *a, float *b, float *c, int N) 
 
     float sum = 0.0f;
 
-    // Loop over the A and B tiles required to compute the C element
     for (int ph = 0; ph < ceil(N/(float)TILE_WIDTH); ++ph) {
         // Load the A and B tiles into shared memory
         if (Row < N && ph*TILE_WIDTH+tx < N)
