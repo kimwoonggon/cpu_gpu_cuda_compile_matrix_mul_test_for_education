@@ -42,14 +42,12 @@ __global__ void matrixMultiplySharedKernel(float *a, float *b, float *c, int N) 
     int bx = blockIdx.x, by = blockIdx.y;
     int tx = threadIdx.x, ty = threadIdx.y;
 
-    // Identify the row and column of the d_C element to work on
     int Row = by * TILE_WIDTH + ty;
     int Col = bx * TILE_WIDTH + tx;
 
     float sum = 0.0f;
 
     for (int ph = 0; ph < ceil(N/(float)TILE_WIDTH); ++ph) {
-        // Load the A and B tiles into shared memory
         if (Row < N && ph*TILE_WIDTH+tx < N)
             sA[ty][tx] = a[Row*N + ph*TILE_WIDTH+tx];
         else
